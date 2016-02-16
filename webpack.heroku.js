@@ -1,27 +1,25 @@
-var path = require('path'),
-    webpack = require('webpack'),
-    node_modules = path.resolve(__dirname, 'node_modules');
+var path = require('path');
 
 module.exports = {
     context: __dirname,
-    entry: {
-      codepen: path.resolve(__dirname, 'src/main.js'),
-      vendors: ['react', 'react-dom', 'marked']
-    },
+    entry: [
+      './src/main.js',
+      'file?name=index.html!jade-html!./src/index.jade',
+    ],
     output: {
-        path: './dist/',
-        filename: 'codepen.js'
+        path: './build/heroku/public',
+        filename: 'index.js'
     },
     devServer: {
         inline: true,
         port: 3333
     },
-    plugins:[ new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')],
+    plugins:[],
     module: {
         loaders: [
             {
                 test: /\.js$/,
-                exclude: [node_modules],
+                exclude: /node_modules/,
                 include: [
                   path.resolve(__dirname, "src")
                 ],
@@ -30,6 +28,7 @@ module.exports = {
                     presets: ['es2015', 'react']
                 }
             },
+            // { test: /\.jade$/, loader:'jade' }
         ]
     }
 }

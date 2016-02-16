@@ -7,7 +7,7 @@ module.exports = {
       'file?name=index.html!jade-html!./src/index.jade'
     ],
     output: {
-        path: './dist/',
+        path: './build/dev',
         filename: 'index.js'
     },
     devServer: {
